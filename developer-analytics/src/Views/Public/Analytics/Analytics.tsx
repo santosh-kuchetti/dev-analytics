@@ -6,7 +6,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
 } from "@mui/material";
 import { get_Dev_Deatils } from "../../../API";
 import { DevResponseType } from "./analytics-types";
