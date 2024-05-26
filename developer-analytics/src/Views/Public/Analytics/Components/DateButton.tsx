@@ -18,7 +18,7 @@ const DateButton = ({
 }: DateButtonType) => {
   return (
     <DateButtonsContainer direction="row" spacing={2}>
-      {data[0].dayWiseActivity.map((day) => (
+      {data[0]?.dayWiseActivity.map((day) => (
         <Button
           key={day?.date}
           variant="contained"

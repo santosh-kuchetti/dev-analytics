@@ -86,38 +86,11 @@ const DevChart = ({ data, activityColors }: DevTablePropsType) => {
       />
       <Stack>
         {showTotalActivity ? (
-          <BarChartContainer>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={getTotalActivityData()}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                {data.map((person, index) => (
-                  <Bar
-                    key={person.name}
-                    dataKey={person.name}
-                    fill={activityColors[index].fillColor}
-                  />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
-          </BarChartContainer>
-        ) : (
-          <Stack>
-            <DateButton
-              data={data}
-              handleDateChange={handleDateChange}
-              selectedDate={selectedDate}
-            />
+          data.length > 0 ? (
             <BarChartContainer>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                  data={getDayWiseActivityData()}
+                  data={getTotalActivityData()}
                   margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
@@ -135,6 +108,57 @@ const DevChart = ({ data, activityColors }: DevTablePropsType) => {
                 </BarChart>
               </ResponsiveContainer>
             </BarChartContainer>
+          ) : (
+            <Stack
+              sx={{
+                height: "50vh",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              No data
+            </Stack>
+          )
+        ) : (
+          <Stack>
+            <DateButton
+              data={data}
+              handleDateChange={handleDateChange}
+              selectedDate={selectedDate}
+            />
+            {data.length > 0 ? (
+              <BarChartContainer>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={getDayWiseActivityData()}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    {data.map((person, index) => (
+                      <Bar
+                        key={person.name}
+                        dataKey={person.name}
+                        fill={activityColors[index].fillColor}
+                      />
+                    ))}
+                  </BarChart>
+                </ResponsiveContainer>
+              </BarChartContainer>
+            ) : (
+              <Stack
+                sx={{
+                  height: "50vh",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                No data
+              </Stack>
+            )}
           </Stack>
         )}
       </Stack>

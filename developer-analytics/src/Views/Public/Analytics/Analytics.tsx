@@ -16,15 +16,18 @@ const Analytics = () => {
   const [devData, setDevData] = useState<DevResponseType | null>(null);
   const [filter, setFilter] = useState<string>("");
   const [viewType, setViewType] = useState<"table" | "barChart">("table");
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getDevData = async () => {
+      setLoading(true);
       try {
         const response = await get_Dev_Deatils();
         setDevData(response.data.data);
       } catch (err) {
         console.error(err);
       }
+      setLoading(false);
     };
     getDevData();
   }, []);
@@ -110,7 +113,7 @@ const Analytics = () => {
         </FormControl>
       </Stack>
       {viewType === "table" ? (
-        <DevTable data={filteredData} />
+        <DevTable data={filteredData} loading={isLoading} />
       ) : (
         <DevChart
           data={filteredData}
